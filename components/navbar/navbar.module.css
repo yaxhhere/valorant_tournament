@@ -1,0 +1,64 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  column-gap: 20px;
+}
+
+.heading {
+  max-width: fit-content;
+  font-size: 24px;
+}
+
+.nav-item {
+  display: block;
+  font-size: 20px;
+}
+
+.route-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dark-mode-switch {
+  -webkit-appearance: none;
+  position: relative;
+  width: 50px;
+  height: 25px;
+  border-radius: 20px;
+  background-color: #ccc;
+  transition: background 0.3s;
+  margin-top: 1px;
+}
+
+.dark-mode {
+  color: #fff;
+}
+
+.dark-mode-switch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  height: 1.25rem;
+  width: 1.25rem;
+  background-color: #fff;
+  transition: left 0.3s;
+}
+
+.dark-mode-switch:checked {
+  background-color: #000;
+}
+
+.dark-mode-switch:checked::after {
+  left: 70%;
+}
