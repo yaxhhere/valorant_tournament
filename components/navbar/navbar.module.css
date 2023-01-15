@@ -15,6 +15,7 @@
 .heading {
   max-width: fit-content;
   font-size: 24px;
+  margin-top: 5px;
 }
 
 .nav-item {
@@ -38,10 +39,6 @@
   margin-top: 1px;
 }
 
-.dark-mode {
-  color: #fff;
-}
-
 .dark-mode-switch::after {
   content: "";
   position: absolute;
@@ -56,9 +53,39 @@
 }
 
 .dark-mode-switch:checked {
-  background-color: #000;
+  background-color: #333;
 }
 
 .dark-mode-switch:checked::after {
   left: 70%;
+}
+
+.menu {
+  font-size: 24px;
+}
+
+.login-button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 620px) {
+  .nav-list {
+    display: inline;
+    padding: 0;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    margin-top: 20px;
+  }
+
+  .nav-item {
+    display: block;
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
 }

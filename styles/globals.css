@@ -1,16 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Lexend&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lexend&display=swap");
 
 @font-face {
-    font-family: 'valo';
-    font-style: normal;
-    font-weight: 600;
-    src: local('valo'), url('/fonts/valo.ttf');
+  font-family: "valo";
+  font-style: normal;
+  font-weight: 600;
+  src: local("valo"), url("/fonts/valo.ttf");
 }
 
 .font-valo {
-    font-family: 'valo', sans-serif;
+  font-family: "valo", sans-serif;
 }
 
 .font-lexend {
-    font-family: 'Lexend';
+  font-family: "Lexend";
+}
+
+.dark-mode-default {
+  color: #fff;
 }

@@ -1,13 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { darkModeSwitch, getDarkMode } from "../../helpers/localstorage";
+import { darkModeSwitch } from "../../helpers/localstorage";
 import { Routes } from "../../helpers/routes";
+import { DarkModeProps } from "../../helpers/types/common";
 import styles from "./navbar.module.css";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { useGoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import axios from "axios";
 
-export default () => {
-  const [darkMode, setDarkMode] = useState(false);
+const navCollapseAt = 620;
+
+export default ({ setDarkMode, darkMode }: DarkModeProps) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [collapsedMenu, setCollapsedMenu] = useState(true);
+  const [userInfo, setUserInfo] = useState<any>(null);
+
+  // handle Login
+  const onSuccess = (res: any) => {
+    console.log(res);
+    if (res.access_token) {
+      axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${res.access_token}`, {
+        headers: {
+          "Authorization": `bearer ${res.access_token}`
+        }
+      }).then((response) => {
+        setUserInfo(response.data);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  };
+
+  const signIn = useGoogleLogin({
+    onSuccess
+  });
+
+  const handleResize = () => {
+    setIsCollapsed(window.innerWidth <= navCollapseAt ? true : false);
+  };
+
   useEffect(() => {
-    const isDarkMode: boolean = getDarkMode();
-    setDarkMode(isDarkMode);
+    if (typeof window != undefined) {
+      window.addEventListener("resize", handleResize);
+      handleResize();
+      return () => window.removeEventListener("resize", handleResize);
+    }
   }, []);
 
   const onDarkMode = (e: { target: { checked: boolean } }) => {
@@ -19,31 +55,58 @@ export default () => {
     }
   };
 
+  const NavListing = () => (
+    <ul className={styles["nav-list"]}>
+      {Routes.map((el, key) => {
+        return (
+          <li className={styles["nav-item"]} key={key}>
+            <a
+              className={`${styles["route-link"]} font-lexend`}
+              href={`${el.link}`}
+            >
+              {el.label}
+            </a>
+          </li>
+        );
+      })}
+      <li className={styles["nav-item"]} key={"login"}>
+        <button
+          className={`${styles["login-button"]} font-lexend`}
+          onClick={() => signIn()}
+        >
+          Login
+        </button>
+      </li>
+      <li className={styles["nav-item"]} key={"dark-switch"}>
+        <input
+          className={styles["dark-mode-switch"]}
+          type={"checkbox"}
+          onChange={onDarkMode}
+          checked={darkMode}
+        />
+      </li>
+    </ul>
+  );
+
   return (
-    <div className={styles.navbar}>
+    <div className={`${styles.navbar} ${darkMode ? " dark-mode-default" : ""}`}>
       <span className={`${styles.heading} font-valo`}>VALORANT</span>
-      <ul className={styles["nav-list"]}>
-        {Routes.map((el, key) => {
-          return (
-            <li className={styles["nav-item"]} key={key}>
-              <a
-                className={`${styles["route-link"]} font-lexend`}
-                href={`${el.link}`}
-              >
-                {el.label}
-              </a>
-            </li>
-          );
-        })}
-        <li className={styles["nav-item"]} key={"dark-switch"}>
-          <input
-            className={styles["dark-mode-switch"]}
-            type={"checkbox"}
-            onChange={onDarkMode}
-            checked={darkMode}
+      {isCollapsed ? (
+        collapsedMenu ? (
+          <AiOutlineMenu
+            className={styles["menu"]}
+            onClick={() => setCollapsedMenu(false)}
           />
-        </li>
-      </ul>
+        ) : (
+          <AiOutlineClose
+            className={styles["menu"]}
+            onClick={() => setCollapsedMenu(true)}
+          />
+        )
+      ) : (
+        <></>
+      )}
+      {collapsedMenu && isCollapsed ? <></> : <NavListing />}
     </div>
   );
 };
