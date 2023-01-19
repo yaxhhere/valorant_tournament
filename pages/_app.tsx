@@ -21,7 +21,6 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [darkMode]);
   return (
     <GoogleOAuthProvider clientId={client_id}>
-      <Script src="https://accounts.google.com/gsi/client" async defer />
       <Component darkMode={darkMode} setDarkMode={setDarkMode} {...pageProps} />
     </GoogleOAuthProvider>
   );
