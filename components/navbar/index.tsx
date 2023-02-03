@@ -10,6 +10,7 @@ import styles from "./navbar.module.css";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { useGoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import axios from "axios";
+import labels from '../../helpers/langs';
 
 const navCollapseAt = 620;
 
@@ -74,6 +75,7 @@ export default ({ setDarkMode, darkMode }: DarkModeProps) => {
         return (
           <li className={styles["nav-item"]} key={key}>
             <a
+              aria-label={el.ariaLabel}
               className={`${styles["route-link"]} font-lexend`}
               href={`${el.link}`}
             >
@@ -87,15 +89,17 @@ export default ({ setDarkMode, darkMode }: DarkModeProps) => {
           <a
             className={`${styles["route-link"]} font-lexend`}
             href={"/profile"}
+            aria-label={labels.profileAriaLabel}
           >
-            Profile
+            {labels.profileHeading}
           </a>
         ) : (
           <button
             className={`${styles["login-button"]} font-lexend`}
             onClick={() => signIn()}
+            aria-label={labels.loginAriaLabel}
           >
-            Login
+            {labels.loginButtonText}
           </button>
         )}
       </li>
@@ -112,7 +116,7 @@ export default ({ setDarkMode, darkMode }: DarkModeProps) => {
 
   return (
     <div className={`${styles.navbar} ${darkMode ? " dark-mode-default" : ""}`}>
-      <span className={`${styles.heading} font-valo`}>VALORANT</span>
+      <span className={`${styles.heading} font-valo`}>{labels.valorantHeading}</span>
       {isCollapsed ? (
         collapsedMenu ? (
           <AiOutlineMenu

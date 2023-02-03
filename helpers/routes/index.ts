@@ -1,12 +1,14 @@
+import labels from '../langs';
+
 export const Routes = [
   {
     link: "/tournament",
-    label: "Tournament",
-    ariaLabel: "Navigate To Tournaments Page",
+    label: labels.tournamentHeading,
+    ariaLabel: labels.tournamentAriaLabel,
   },
   {
     link: "/about-us",
-    label: "About Us",
-    ariaLabel: "Navigate To About Us Page",
+    label: labels.aboutHeading,
+    ariaLabel: labels.aboutAriaLabel,
   },
 ];
