@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { darkModeSwitch } from "../../helpers/localstorage";
+import {
+  darkModeSwitch,
+  getSession,
+  setSession,
+} from "../../helpers/localstorage";
 import { Routes } from "../../helpers/routes";
 import { DarkModeProps } from "../../helpers/types/common";
 import styles from "./navbar.module.css";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { useGoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import axios from "axios";
 
@@ -18,20 +22,27 @@ export default ({ setDarkMode, darkMode }: DarkModeProps) => {
   const onSuccess = (res: any) => {
     console.log(res);
     if (res.access_token) {
-      axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${res.access_token}`, {
-        headers: {
-          "Authorization": `bearer ${res.access_token}`
-        }
-      }).then((response) => {
-        setUserInfo(response.data);
-      }).catch((err) => {
-        console.log(err);
-      });
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${res.access_token}`,
+          {
+            headers: {
+              Authorization: `bearer ${res.access_token}`,
+            },
+          }
+        )
+        .then((response) => {
+          setSession(response.data);
+          setUserInfo(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
   const signIn = useGoogleLogin({
-    onSuccess
+    onSuccess,
   });
 
   const handleResize = () => {
@@ -39,6 +50,8 @@ export default ({ setDarkMode, darkMode }: DarkModeProps) => {
   };
 
   useEffect(() => {
+    console.log(getSession());
+    setUserInfo(getSession());
     if (typeof window != undefined) {
       window.addEventListener("resize", handleResize);
       handleResize();
@@ -70,12 +83,21 @@ export default ({ setDarkMode, darkMode }: DarkModeProps) => {
         );
       })}
       <li className={styles["nav-item"]} key={"login"}>
-        <button
-          className={`${styles["login-button"]} font-lexend`}
-          onClick={() => signIn()}
-        >
-          Login
-        </button>
+        {userInfo ? (
+          <a
+            className={`${styles["route-link"]} font-lexend`}
+            href={"/profile"}
+          >
+            Profile
+          </a>
+        ) : (
+          <button
+            className={`${styles["login-button"]} font-lexend`}
+            onClick={() => signIn()}
+          >
+            Login
+          </button>
+        )}
       </li>
       <li className={styles["nav-item"]} key={"dark-switch"}>
         <input

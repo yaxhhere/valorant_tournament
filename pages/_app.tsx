@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { useState, useEffect } from "react";
 import { getDarkMode } from "../helpers/localstorage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import Script from 'next/script'
+import Script from "next/script";
 
 const client_id =
   "926324832611-oafn867ddacqv3fn7b5bl9e1v6tqib3p.apps.googleusercontent.com";
