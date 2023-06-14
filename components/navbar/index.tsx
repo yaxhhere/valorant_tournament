@@ -10,7 +10,7 @@ import styles from "./navbar.module.css";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { useGoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import axios from "axios";
-import labels from '../../helpers/langs';
+import labels from "../../helpers/langs";
 
 const navCollapseAt = 620;
 
@@ -116,7 +116,9 @@ export default ({ setDarkMode, darkMode }: DarkModeProps) => {
 
   return (
     <div className={`${styles.navbar} ${darkMode ? " dark-mode-default" : ""}`}>
-      <span className={`${styles.heading} font-valo`}>{labels.valorantHeading}</span>
+      <span className={`${styles.heading} font-valo`}>
+        {labels.valorantHeading}
+      </span>
       {isCollapsed ? (
         collapsedMenu ? (
           <AiOutlineMenu

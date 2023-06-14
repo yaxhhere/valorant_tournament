@@ -1,11 +1,17 @@
 {
-    "tournamentHeading": "Tournament",
-    "tournamentAriaLabel": "Navigate To Tournaments Page",
-    "profileHeading": "Profile",
-    "profileAriaLabel": "Navigate To Profile Page",
-    "aboutHeading": "About Us",
-    "aboutAriaLabel": "Navigate To About Us Page",
-    "loginButtonText": "Login",
-    "loginAriaLabel": "Button (Google login)",
-    "valorantHeading": "Valorant"
+  "tournamentHeading": "Tournament",
+  "tournamentAriaLabel": "Navigate To Tournaments Page",
+  "profileHeading": "Profile",
+  "profileAriaLabel": "Navigate To Profile Page",
+  "aboutHeading": "About Us",
+  "aboutAriaLabel": "Navigate To About Us Page",
+  "loginButtonText": "Login",
+  "loginAriaLabel": "Button (Google login)",
+  "valorantHeading": "Valorant",
+  "greetings": "Hello",
+  "verificationHead": "Please Enter Your Valorant Details In Order To Proceed.",
+  "verificationNote": "Note: You Won't Be Able To Unlink Your account After this",
+  "username": "Username",
+  "tag": "Tag",
+  "verifyButtonText": "Verify And Lock"
 }

@@ -6,5 +6,5 @@ export interface DarkModeProps {
 }
 
 export enum LangEnum {
-  en = 'en'
+  en = "en",
 }

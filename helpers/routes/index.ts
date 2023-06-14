@@ -1,4 +1,4 @@
-import labels from '../langs';
+import labels from "../langs";
 
 export const Routes = [
   {
